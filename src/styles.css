@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+  font-family: 'Poppins', sans-serif;
+}
+
+:root {
+  --bs-font-sans-serif: 'Poppins', sans-serif;
+}
+
+.container {
+  max-width: 1920px;
+  padding: 10px 100px
+}

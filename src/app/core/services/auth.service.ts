@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { ApiService } from './api.service';
 import { User } from '../models/user.model';
 
@@ -8,7 +8,28 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
 
-  constructor(private api: ApiService) {}
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
+
+  constructor(private api: ApiService) {
+    this.checkStoredAuth();
+  }
+
+  private checkStoredAuth(): void {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    if (token && user) {
+      this.currentUserSubject.next(JSON.parse(user));
+    }
+  }
+
+  get isAuthenticated(): boolean {
+    return !!this.currentUserSubject.value;
+  }
+
+  get currentUser(): User | null {
+    return this.currentUserSubject.value;
+  }
 
   login(email: string, password: string): Observable<User> {
     return this.api.post<User>('login', { email, password });
@@ -29,8 +50,15 @@ export class AuthService {
     formData.append('password', payload.password);
     formData.append('password_confirmation', payload.confirmPassword);
     formData.append('username', payload.name);
-    
+
 
     return this.api.post<User>('register', formData);
   }
+
+  setUser(user: User, token: string): void {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
+  
 }
