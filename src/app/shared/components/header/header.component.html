@@ -20,12 +20,12 @@
 
         <div class="d-flex align-items-center">
           <img
-            [src]="authService.currentUser?.user || '/assets/user.png'"
+            [src]="authService.currentUser?.user?.profile_photo || '/assets/user.png'"
             [alt]="authService.currentUser?.user?.name || 'User Avatar'"
-            [ngClass]="authService.currentUser?.user ? 'rounded-circle' : ''"
-            [width]="authService.currentUser?.user ? '40' : '20'"
-            [height]="authService.currentUser?.user ? '40' : '20'"
-            [style.object-fit]="authService.currentUser?.user ? 'cover' : 'none'">
+            [ngClass]="authService.currentUser?.user?.profile_photo ? 'rounded-circle' : ''"
+            [width]="authService.currentUser?.user?.profile_photo ? '40' : '20'"
+            [height]="authService.currentUser?.user?.profile_photo ? '40' : '20'"
+            [style.object-fit]="authService.currentUser?.user?.profile_photo ? 'cover' : 'none'">
         </div>
       </div>
     </div>

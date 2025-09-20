@@ -7,7 +7,6 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
@@ -19,7 +18,16 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
     if (token && user) {
-      this.currentUserSubject.next(JSON.parse(user));
+      const userData = JSON.parse(user);
+      this.currentUserSubject.next({
+        user: {
+          id: userData.id,
+          name: userData.username,
+          email: userData.email,
+          profile_photo: userData.avatar
+        },
+        token: token
+      });
     }
   }
 
@@ -36,7 +44,7 @@ export class AuthService {
   }
 
   register(payload: {
-    avatar: string;
+    avatar: File | null;
     email: string;
     password: string;
     confirmPassword: string;
@@ -55,7 +63,7 @@ export class AuthService {
     return this.api.post<User>('register', formData);
   }
 
-  setUser(user: User, token: string): void {
+  setUser(user: any, token: string): void {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSubject.next(user);

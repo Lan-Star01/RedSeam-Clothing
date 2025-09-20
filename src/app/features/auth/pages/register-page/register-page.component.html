@@ -1,1 +1,124 @@
-<p>register-page works!</p>
+<div class="container-fluid vh-100 d-flex p-0">
+
+  <div class="col-md-6 d-none d-md-block p-0 auth-page-img">
+  </div>
+
+  <div class="col-md-6 d-flex align-items-center justify-content-center">
+    <div class="register-container">
+      <h3 class="mb-5 fw-semibold">Registration</h3>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form d-flex flex-column">
+        
+        <div class="mb-4 position-relative d-flex align-items-center gap-3">
+          <div class="avatar-upload-container">
+            <input
+              type="file"
+              class="form-control"
+              id="avatar"
+              accept="image/*"
+              (change)="onAvatarChange($event)"
+              style="display: none;"
+            />
+            <div class="avatar-display">
+              <div class="avatar-preview" *ngIf="avatarPreview; else noAvatar">
+                <img [src]="avatarPreview" alt="Avatar preview" class="avatar-image">
+              </div>
+              <ng-template #noAvatar>
+                <div class="avatar-placeholder">
+                  <img src="/assets/camera.png" alt="Upload Avatar" class="avatar-placeholder-image">
+                </div>
+              </ng-template>
+            </div>
+          </div>
+
+          <div *ngIf="!avatarPreview">
+            <button type="button" class="btn" (click)="triggerFileUpload()">Upload image</button>
+          </div>
+
+          <div *ngIf="avatarPreview" class="d-flex gap-2">
+            <button type="button" class="btn" (click)="triggerFileUpload()">Upload new</button>
+            <button type="button" class="btn" (click)="removeAvatar()">Remove</button>
+          </div>
+        </div>
+
+        <div class="mb-3 position-relative">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="username"
+            placeholder=" "
+            [class.is-invalid]="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)"
+            [class.is-valid]="registerForm.get('username')?.valid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)"
+          />
+          <label class="floating-label">Username <span class="text-danger">*</span></label>
+        </div>
+
+        <div class="mb-3 position-relative">
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder=" "
+            [class.is-invalid]="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)"
+            [class.is-valid]="registerForm.get('email')?.valid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)"
+          />
+          <label class="floating-label">Email <span class="text-danger">*</span></label>
+        </div>
+
+        <div class="mb-3 position-relative">
+          <div class="position-relative">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              formControlName="password"
+              placeholder=" "
+              [class.is-invalid]="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)"
+              [class.is-valid]="registerForm.get('password')?.valid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)"
+            />
+            <label class="floating-label">Password <span class="text-danger">*</span></label>
+            <button
+              type="button"
+              class="btn position-absolute end-0 top-50 translate-middle-y border-0 bg-transparent"
+              (click)="togglePasswordVisibility()"
+              style="z-index: 10;">
+              <i [class]="showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-4 position-relative">
+          <div class="position-relative">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              class="form-control"
+              formControlName="confirmPassword"
+              placeholder=" "
+              [class.is-invalid]="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)"
+              [class.is-valid]="registerForm.get('confirmPassword')?.valid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)"
+            />
+            <label class="floating-label">Confirm Password <span class="text-danger">*</span></label>
+            <button
+              type="button"
+              class="btn position-absolute end-0 top-50 translate-middle-y border-0 bg-transparent"
+              (click)="toggleConfirmPasswordVisibility()"
+              style="z-index: 10;">
+              <i [class]="showConfirmPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn red-btn w-100" [disabled]="loading">
+          {{ loading ? 'Registering...' : 'Register' }}
+        </button>
+      </form>
+
+      <p class="text-danger mt-3" *ngIf="error">{{ error }}</p>
+
+      <p class="text-center mt-3 login-text-prompt">
+        Already member?
+        <a routerLink="/login" class="login-route">Login</a>
+      </p>
+    </div>
+  </div>
+</div>
+
