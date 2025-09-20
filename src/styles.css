@@ -1,5 +1,6 @@
 html, body {
   font-family: 'Poppins', sans-serif;
+  color: #10151F;
 }
 
 :root {
@@ -9,4 +10,96 @@ html, body {
 .container {
   max-width: 1920px;
   padding: 10px 100px
+}
+
+.auth-page-img {
+  background-image: url('/assets/login-img.png');
+  background-size: 134rem;
+  background-position: 3% 1%;
+  background-repeat: no-repeat;
+}
+
+.login-container {
+  width: 554px;
+}
+
+.login-container h3 {
+  font-size: 42px;
+}
+
+.red-btn {
+  background-color: #FF4000;
+  color: #FFFFFF;
+  padding: 16px 60px;
+  gap: 10px;
+  opacity: 1;
+  border-radius: 10px;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+.red-btn:hover  {
+  background-color: #FF4000;
+  color: #FFFFFF;
+}
+.register-text-prompt {
+  display: flex;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  gap: 8px;
+}
+
+.register-route {
+  color: #FF4000;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.form-control {
+  border: 1px solid #E1DFE1;
+  border-radius: 8px;
+  padding: 0 12px;
+  height: 42px;
+}
+
+.floating-label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  background: white;
+  padding: 0 4px;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  color: #6C757D;
+}
+
+.form-control:focus + .floating-label,
+.form-control:not(:placeholder-shown) + .floating-label {
+  top: 0;
+  font-size: 12px;
+  color: #6C757D;
+}
+
+.form-control.is-invalid, .was-validated .form-control:invalid {
+  background-image: none;
+  border-color: #dc3545;
+}
+
+.form-control.is-valid, .was-validated .form-control:valid {
+  background-image: none;
+  border-color: #E1DFE1;
+}
+
+.form-control:focus {
+  border-color: #E1DFE1;
+  box-shadow: none;
+}
+
+.auth-form {
+  gap: 24px;
 }
