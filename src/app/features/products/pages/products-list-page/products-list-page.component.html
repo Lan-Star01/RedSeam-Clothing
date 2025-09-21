@@ -1,1 +1,14 @@
-<p>products-list-page works!</p>
+<div class="container">
+
+    <div class="products-grid">
+        <div class="product-card" *ngFor="let product of products" (click)="onProductClick(product.id)">
+            <div class="product-image-container">
+                <img [src]="product.cover_image" [alt]="product.name" class="product-image">
+            </div>
+            <div class="product-info">
+                <p class="product-name mb-1">{{ product.name }}</p>
+                <p class="product-price">$ {{ product.price }}</p>
+            </div>
+        </div>
+  </div>
+</div>
