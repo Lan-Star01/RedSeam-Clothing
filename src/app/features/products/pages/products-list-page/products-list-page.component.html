@@ -1,6 +1,11 @@
 <div class="container">
 
-    <div class="products-grid">
+    <div *ngIf="loading" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Loading products...</p>
+    </div>
+
+    <div *ngIf="!loading" class="products-grid">
         <div class="product-card" *ngFor="let product of products" (click)="onProductClick(product.id)">
             <div class="product-image-container">
                 <img [src]="product.cover_image" [alt]="product.name" class="product-image">
@@ -10,5 +15,36 @@
                 <p class="product-price">$ {{ product.price }}</p>
             </div>
         </div>
-  </div>
+    </div>
+
+    <div *ngIf="!loading && products.length > 0" class="pagination-container">
+
+        <div class="pagination-controls">
+            <button
+                class="pagination-btn prev-btn"
+                [disabled]="!hasPrevPage"
+                (click)="onPreviousPage()">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+
+            <div class="page-numbers">
+                <button
+                    *ngFor="let page of getVisiblePages()"
+                    class="page-btn"
+                    [class.active]="page === currentPage"
+                    [class.dots]="page === '...'"
+                    (click)="onPageButtonClick(page)">
+                    {{ page }}
+                </button>
+            </div>
+
+            <button
+                class="pagination-btn next-btn"
+                [disabled]="!hasNextPage"
+                (click)="onNextPage()">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
 </div>
