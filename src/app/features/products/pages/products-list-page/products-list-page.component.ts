@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ProductService } from '../../../../core/services/product.service';
 
 @Component({
   selector: 'app-products-list-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule],
   templateUrl: './products-list-page.component.html',
   styleUrl: './products-list-page.component.css'
 })
@@ -22,6 +22,10 @@ export class ProductsListPageComponent implements OnInit {
   hasNextPage = false;
   hasPrevPage = false;
 
+  sortBy = '';
+  priceFrom: number | null = null;
+  priceTo: number | null = null;
+
   constructor(
     private productService: ProductService,
     private router: Router
@@ -34,7 +38,21 @@ export class ProductsListPageComponent implements OnInit {
   loadProducts(): void {
     this.loading = true;
 
-    this.productService.getProducts({ page: this.currentPage }).subscribe({
+    const filters: any = { page: this.currentPage };
+
+    if (this.sortBy) {
+      filters.sort = this.sortBy;
+    }
+
+    if (this.priceFrom !== null) {
+      filters.priceFrom = this.priceFrom;
+    }
+
+    if (this.priceTo !== null) {
+      filters.priceTo = this.priceTo;
+    }
+
+    this.productService.getProducts(filters).subscribe({
       next: (res: any) => {
         this.products = res.data || res;
 
@@ -105,6 +123,17 @@ export class ProductsListPageComponent implements OnInit {
     if (typeof page === 'number') {
       this.onPageChange(page);
     }
+  }
+
+  setSorting(sortValue: string): void {
+    this.sortBy = sortValue;
+    this.currentPage = 1;
+    this.loadProducts();
+  }
+
+  onPriceFilterChange(): void {
+    this.currentPage = 1;
+    this.loadProducts();
   }
 
   private scrollToTop(): void {
