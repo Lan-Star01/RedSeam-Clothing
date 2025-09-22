@@ -28,13 +28,13 @@
 
       <div class="col-md-5">
         <div class="product-info">
-          <h1 class="product-title">{{ product.name }}</h1>
 
-          <div class="price mb-4">
+          <div class="title-price">
+            <h1 class="product-title">{{ product.name }}</h1>
             <span class="current-price">$ {{ product.price }}</span>
           </div>
 
-          <div class="selection-group mb-3" *ngIf="product?.available_colors?.length">
+          <div class="selection-group" *ngIf="product?.available_colors?.length">
             <label class="selection-label">Color: {{ selectedColor }}</label>
             <div class="color-options">
               <div
@@ -46,6 +46,62 @@
               </div>
             </div>
           </div>
+
+          <div class="selection-group">
+            <label class="selection-label">Size: {{ selectedSize }}</label>
+            <div class="size-options" *ngIf="product?.available_sizes?.length; else sizeUnavailable">
+              <div
+                *ngFor="let size of product.available_sizes"
+                class="size-option"
+                [class.selected]="selectedSize === size"
+                (click)="selectSize(size)">
+                {{ size }}
+              </div>
+            </div>
+            <ng-template #sizeUnavailable>
+              <span class="unavailable-text">Currently unavailable</span>
+            </ng-template>
+          </div>
+
+          <div class="selection-group">
+            <label class="selection-label">Quantity</label>
+            <div class="dropdown" *ngIf="product?.quantity && product.quantity > 0; else quantityUnavailable">
+                <button class="btn dropdown-toggle quantity-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ selectedQuantity }} <img src="/assets/arrow-down.png" />
+                </button>
+                <div class="dropdown-menu quantity-dropdown-menu">
+                    <div
+                      *ngFor="let qty of getQuantityOptions()"
+                      (click)="selectQuantity(qty)"
+                      [class.active]="selectedQuantity === qty">
+                      {{ qty }}
+                    </div>
+                </div>
+            </div>
+            <ng-template #quantityUnavailable>
+              <span class="unavailable-text">Currently unavailable</span>
+            </ng-template>
+          </div>
+
+          <button class="btn red-btn add-to-cart-btn" (click)="addToCart()">
+            <img src="/assets/shopping-cart-white.png" /> Add to Cart
+          </button>
+
+          <hr>
+
+          <div class="product-description">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3>Details</h3>
+              <img [src]="product.brand.image" [alt]="product.brand.name" height="61" width="109"/>
+            </div>
+            <div class="d-flex flex-column gap-2">
+              <label class="description-label">Brand: {{product.brand.name}} </label>
+            
+              <p class="description-text">{{ product.description }}</p>
+            </div>
+            
+          </div>
+          
 
         </div>
       </div>

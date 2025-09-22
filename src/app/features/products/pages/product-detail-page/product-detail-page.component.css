@@ -14,7 +14,6 @@
   border-top: 4px solid #FF4000;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 16px;
 }
 
 @keyframes spin {
@@ -70,16 +69,14 @@
 
 .product-info {
   padding-left: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
 }
 
 .product-title {
   font-size: 32px;
   font-weight: 600;
-  margin-bottom: 16px;
-}
-
-.price {
-  margin: 24px 0;
 }
 
 .current-price {
@@ -87,17 +84,12 @@
   font-weight: 600;
 }
 
-.selection-group {
-  margin-bottom: 24px;
-}
-
-.selection-label {
+.selection-label, .description-label, .description-text, .unavailable-text {
   font-size: 14px;
   font-weight: 400;
-  margin-bottom: 12px;
 }
 
-.color-options {
+.color-options, .size-options {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
@@ -130,6 +122,95 @@
   justify-content: center;
   align-items: center;
   padding: 60px 20px;
-  color: #6C757D;
+  color: #3E424A;
   font-size: 18px;
+}
+
+.brand-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.brand-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #6C757D;
+}
+
+.size-option {
+  padding: 9px 16px;
+  border: 1px solid #E1DFE1;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 400;
+  width: 70px;
+  text-align: center;
+}
+
+.size-option.selected {
+  background-color: #F8F6F7;
+  border-color: #10151F;
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.product-description h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #10151F;
+}
+
+.product-description p {
+  font-size: 16px;
+  color: #3E424A;
+}
+
+
+.quantity-dropdown {
+  border: 1px solid #E1DFE1;
+  padding: 9px 16px;
+  border-radius: 10px;
+  gap: 10px;
+  display: flex;
+  align-items: center;;
+}
+
+.quantity-dropdown-menu.show {
+  min-width: fit-content;
+}
+
+.quantity-dropdown-menu div {
+  padding: 8px 24px;
+  cursor: pointer;
+}
+
+.add-to-cart-btn {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.title-price {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.selection-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
