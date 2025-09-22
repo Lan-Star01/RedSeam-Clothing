@@ -26,16 +26,20 @@ export interface ProductDetail {
   id: number;
   name: string;
   description: string;
-  release_date: string;
+  release_year: string;
   cover_image: string;
   images: string[];
   price: number;
-  total_price: number;
-  quantity: number;
+  available_colors: string[];
+  available_sizes: string[];
   brand: {
     id: number;
     name: string;
     image: string;
   };
+  total_price: number;
+  quantity: number;
+  color: string;
+  size: string;
 }
 

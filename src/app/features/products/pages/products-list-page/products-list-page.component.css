@@ -124,10 +124,6 @@
   width: 392px;
 }
 
-.dropdown-toggle::after {
-  display: none !important;
-}
-
 .sortby-dropdown-menu {
   width: 223px;;
   padding: 16px 0;

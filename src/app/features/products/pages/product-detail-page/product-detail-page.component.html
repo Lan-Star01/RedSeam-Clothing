@@ -1,1 +1,58 @@
-<p>product-detail-page works!</p>
+<div class="container">
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Loading product...</p>
+  </div>
+
+  <div *ngIf="!loading && product" class="product-detail">
+    <div class="row justify-content-between">
+      <div class="col-md-6">
+        <div class="product-images d-flex flex-row">
+          <div class="image-thumbnails" *ngIf="product.images.length > 1">
+            <div
+              *ngFor="let image of product.images; let i = index"
+              class="thumbnail"
+              [class.active]="selectedImageIndex === i"
+              (click)="selectImage(i)">
+              <img [src]="image" [alt]="product.name" class="img-fluid">
+            </div>
+          </div>
+          <div class="main-image">
+            <img
+              [src]="product.images[selectedImageIndex] || product.cover_image"
+              [alt]="product.name"
+              class="img-fluid main-product-image">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <div class="product-info">
+          <h1 class="product-title">{{ product.name }}</h1>
+
+          <div class="price mb-4">
+            <span class="current-price">$ {{ product.price }}</span>
+          </div>
+
+          <div class="selection-group mb-3" *ngIf="product?.available_colors?.length">
+            <label class="selection-label">Color: {{ selectedColor }}</label>
+            <div class="color-options">
+              <div
+                *ngFor="let color of product.available_colors"
+                class="color-circle"
+                [class.selected]="selectedColor === color"
+                [style.background-color]="color.toLowerCase()"
+                (click)="selectColor(color)">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !product" class="error-message">
+    <p>Product not found</p>
+  </div>
+</div>
