@@ -57,7 +57,30 @@
         </div>
       </div>
     </div>
+
+    
+
   </div>
 
+  <div *ngIf="cartItems.length > 0" class="cart-price-summary">
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="total-label">Items subtotal</span>
+        <span class="total-amount"> $ {{getItemsSubtotal()}} </span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="total-label">Delivery</span>
+        <span class="total-amount"> $ 5 </span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center last-summary">
+        <span class="total-label">Total</span>
+        <span class="total-amount"> $ {{getGrandTotal()}} </span>
+      </div>
+    </div>
+
+  <div *ngIf="cartItems.length > 0" class="cart-footer">
+    <button class="checkout-btn red-btn" (click)="goToCheckout()">
+      Go to checkout
+    </button>
+  </div>
   
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
 import { CartItem } from '../../../core/models/cart.model';
 import { Subscription } from 'rxjs';
@@ -16,7 +17,10 @@ export class SidePanelComponent implements OnInit, OnDestroy {
   cartItems: CartItem[] = [];
   private subscriptions: Subscription[] = [];
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -64,6 +68,21 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
   getTotalItems(): number {
     return this.cartItems.reduce((total, item) => total + item.quantity, 0);
+  }
+
+  getItemsSubtotal(): number {
+
+    return this.cartItems.reduce((total, item) => total + item.total_price, 0);
+  }
+
+  getGrandTotal(): number {
+    const deliveryFee = 5;
+    return this.getItemsSubtotal() + deliveryFee;
+  }
+
+  goToCheckout(): void {
+    this.cartService.closeCartPanel();
+    this.router.navigate(['/checkout']);
   }
 
 }

@@ -177,3 +177,32 @@
   border: none;
   color: #E1DFE1;
 }
+
+.cart-price-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 6rem;
+}
+
+.cart-price-summary span {
+  font-weight: 400;
+  font-size: 16px;
+  color: #3E424A;
+}
+
+.last-summary span{
+  font-weight: 500 !important;
+  font-size: 20px !important;
+  color: #10151F;
+}
+
+.checkout-btn {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
