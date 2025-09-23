@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -12,5 +13,13 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class HeaderComponent {
 
-  constructor(public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    private cartService: CartService
+  ) {}
+
+  openCartPanel(): void {
+    this.cartService.openCartPanel();
+  }
+
 }

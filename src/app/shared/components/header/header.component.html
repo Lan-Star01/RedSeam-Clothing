@@ -14,9 +14,9 @@
       </div>
 
       <div *ngIf="authService.isAuthenticated" class="d-flex align-items-center gap-3">
-        <a routerLink="/checkout" class="btn position-relative">
+        <button class="btn position-relative" (click)="openCartPanel()">
           <img src="/assets/shopping-cart.png" alt="Cart Icon" height="24">
-        </a>
+        </button>
 
         <div class="d-flex align-items-center">
           <img

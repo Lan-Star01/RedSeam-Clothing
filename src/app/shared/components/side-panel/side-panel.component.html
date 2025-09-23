@@ -1,0 +1,63 @@
+<div class="cart-overlay" [class.show]="isOpen" (click)="closePanel()"></div>
+
+<div class="cart-side-panel" [class.open]="isOpen">
+  <div class="cart-header">
+    <h3>Shopping Cart ({{ getTotalItems() }})</h3>
+    <button class="close-btn" (click)="closePanel()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <div class="cart-content">
+    <div *ngIf="cartItems.length === 0" class="empty-cart">
+      <img src="/assets/oops.png" alt="Empty Cart" class="empty-cart-icon">
+      <p class="oops">Ooops!</p>
+      <p>You’ve got nothing in your cart just yet...</p>
+      <button class="btn shop-btn red-btn mt-5" (click)="closePanel()">
+        Start Shopping
+      </button>
+    </div>
+
+    <div *ngIf="cartItems.length > 0" class="cart-items">
+      <div *ngFor="let item of cartItems" class="cart-item">
+        <div class="item-image">
+          <img [src]="item.cover_image" [alt]="item.name" class="product-image">
+        </div>
+
+        <div class="item-details">
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="item-name">{{ item.name }}</p>
+            <p class="item-price">${{ item.total_price }}</p>
+          </div>
+          <div class="d-flex flex-column color-size-info">
+            <p class="mb-2"> {{ item.color }} </p>
+            <p class="mb-0"> {{ item.size }} </p>
+          </div>
+          
+
+          <div class="quantity-controls">
+            <div class="quantity-buttons">
+              <button
+                class="btn"
+                (click)="updateQuantity(item.id, item.quantity - 1)"
+                [disabled]="item.quantity <= 1">
+                <i class="bi bi-dash-lg"></i>
+              </button>
+              <span class="quantity">{{ item.quantity }}</span>
+              <button
+                class="btn"
+                (click)="updateQuantity(item.id, item.quantity + 1)">
+                <i class="bi bi-plus-lg"></i>
+              </button>
+            </div>
+            <button class="btn remove-btn" (click)="removeItem(item.id)">
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</div>
