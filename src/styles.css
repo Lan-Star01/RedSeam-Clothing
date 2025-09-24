@@ -302,3 +302,13 @@ html, body {
   height: 135px;
   margin: 5rem 0px 2rem;
 }
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.3s ease;
+  color: #10151F;
+}

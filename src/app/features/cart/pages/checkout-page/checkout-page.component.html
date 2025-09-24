@@ -154,5 +154,12 @@
     </div>
 
   </div>
-  
+
 </div>
+
+<app-success-modal
+  [isVisible]="showSuccessModal"
+  [title]="'Congrats!'"
+  [message]="'Your order is placed successfully!'"
+  (close)="onModalClose()">
+</app-success-modal>

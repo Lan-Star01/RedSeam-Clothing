@@ -4,17 +4,19 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { CartService } from '../../../../core/services/cart.service';
 import { CartItem } from '../../../../core/models/cart.model';
 import { Subscription } from 'rxjs';
+import { SuccessModalComponent } from '../../../../shared/components/success-modal/success-modal.component';
 
 @Component({
   selector: 'app-checkout-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, SuccessModalComponent],
   templateUrl: './checkout-page.component.html',
   styleUrl: './checkout-page.component.css'
 })
 export class CheckoutPageComponent implements OnInit, OnDestroy {
   checkoutForm!: FormGroup;
   cartItems: CartItem[] = [];
+  showSuccessModal = false;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -111,11 +113,17 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
       this.cartService.checkout(checkoutPayload).subscribe({
         next: (response) => {
           console.log('Checkout successful:', response);
+          this.showSuccessModal = true;
+          window.location.reload();
         },
         error: (error) => {
           console.error('Checkout failed:', error);
         }
       });
     }
+  }
+
+  onModalClose(): void {
+    this.showSuccessModal = false;
   }
 }
