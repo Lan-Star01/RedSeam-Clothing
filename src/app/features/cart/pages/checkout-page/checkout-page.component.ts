@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CartService } from '../../../../core/services/cart.service';
+import { CartItem } from '../../../../core/models/cart.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-checkout-page',
@@ -9,13 +12,28 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
   templateUrl: './checkout-page.component.html',
   styleUrl: './checkout-page.component.css'
 })
-export class CheckoutPageComponent implements OnInit {
+export class CheckoutPageComponent implements OnInit, OnDestroy {
   checkoutForm!: FormGroup;
+  cartItems: CartItem[] = [];
+  private subscriptions: Subscription[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
+    this.subscriptions.push(
+      this.cartService.cartItems$.subscribe(items => {
+        this.cartItems = items;
+      })
+    );
+    this.cartService.refreshCart();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   initializeForm(): void {
@@ -42,5 +60,62 @@ export class CheckoutPageComponent implements OnInit {
       if (field.errors['minlength']) return `${fieldName} is too short`;
     }
     return '';
+  }
+
+  updateQuantity(productId: number, quantity: number): void {
+    this.cartService.updateProductInCart(productId, { quantity }).subscribe({
+      next: () => {
+        this.cartService.refreshCart();
+      },
+      error: (error) => {
+        console.error('Error updating quantity:', error);
+      }
+    });
+  }
+
+  removeItem(productId: number): void {
+    this.cartService.removeProductFromCart(productId).subscribe({
+      next: () => {
+        this.cartService.refreshCart();
+      },
+      error: (error) => {
+        console.error('Error removing item:', error);
+      }
+    });
+  }
+
+  getTotalItems(): number {
+    return this.cartItems.reduce((total, item) => total + item.quantity, 0);
+  }
+
+  getItemsSubtotal(): number {
+    return this.cartItems.reduce((total, item) => total + item.total_price, 0);
+  }
+
+  getGrandTotal(): number {
+    const deliveryFee = 5;
+    return this.getItemsSubtotal() + deliveryFee;
+  }
+
+  onPayment(): void {
+    if (this.checkoutForm.valid && this.cartItems.length > 0) {
+      const checkoutPayload = {
+        name: this.checkoutForm.value.firstName,
+        surname: this.checkoutForm.value.lastName,
+        email: this.checkoutForm.value.email,
+        address: this.checkoutForm.value.address,
+        zip_code: this.checkoutForm.value.zipCode,
+        paymentMethod: 'credit-card'
+      };
+
+      this.cartService.checkout(checkoutPayload).subscribe({
+        next: (response) => {
+          console.log('Checkout successful:', response);
+        },
+        error: (error) => {
+          console.error('Checkout failed:', error);
+        }
+      });
+    }
   }
 }

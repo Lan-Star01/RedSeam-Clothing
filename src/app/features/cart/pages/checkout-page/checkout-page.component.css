@@ -1,7 +1,6 @@
 .checkout-title {
   font-size: 42px;
   font-weight: 600;
-
 }
 
 .checkout-form {
@@ -44,7 +43,7 @@
 }
 
 .checkout-form .row {
-  width: 100%;
+  width: 86%;
 }
 
 .input-with-icon {
@@ -63,4 +62,25 @@
 
 .email-input {
   padding-left: 40px;
+}
+
+.cart-content {
+  padding-top: 0;
+}
+
+.cart-items {
+  height: 393px;
+}
+
+.col-4 {
+  width: 460px;
+}
+
+.cart-footer {
+  margin-top: auto;
+}
+
+.cart-price-summary {
+  margin-top: 0;
+  margin-bottom: 5rem;
 }

@@ -1,8 +1,9 @@
 <div class="container">
   <h2 class="checkout-title mb-5 mt-5">Checkout</h2>
 
-  <div class="row">
-    <div class="col-7">
+  <div class="row justify-content-between">
+
+    <div class="col-8">
       <form [formGroup]="checkoutForm" class="checkout-form">
 
         <div class="form-section">
@@ -86,7 +87,72 @@
     
       </form>
     </div>
-    <div class="col-5"></div>
+
+    <div class="col-4">
+      <div class="cart-content">
+        <div *ngIf="cartItems.length > 0" class="cart-items">
+          <div *ngFor="let item of cartItems" class="cart-item">
+            <div class="item-image">
+              <img [src]="item.cover_image" [alt]="item.name" class="product-image">
+            </div>
+
+            <div class="item-details">
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="item-name">{{ item.name }}</p>
+                <p class="item-price">${{ item.total_price }}</p>
+              </div>
+              <div class="d-flex flex-column color-size-info">
+                <p class="mb-2">{{ item.color }}</p>
+                <p class="mb-0">{{ item.size }}</p>
+              </div>
+
+
+              <div class="quantity-controls">
+                <div class="quantity-buttons">
+                  <button
+                    class="btn"
+                    (click)="updateQuantity(item.id, item.quantity - 1)"
+                    [disabled]="item.quantity <= 1">
+                    <i class="bi bi-dash-lg"></i>
+                  </button>
+                  <span class="quantity">{{ item.quantity }}</span>
+                  <button
+                    class="btn"
+                    (click)="updateQuantity(item.id, item.quantity + 1)">
+                    <i class="bi bi-plus-lg"></i>
+                  </button>
+                </div>
+                <button class="btn remove-btn" (click)="removeItem(item.id)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="cartItems.length > 0" class="cart-price-summary">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="total-label">Items subtotal</span>
+          <span class="total-amount">${{ getItemsSubtotal() }}</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="total-label">Delivery</span>
+          <span class="total-amount">$ 5</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center last-summary">
+          <span class="total-label">Total</span>
+          <span class="total-amount">${{ getGrandTotal() }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="cartItems.length > 0" class="cart-footer">
+        <button class="checkout-btn red-btn" (click)="onPayment()" [disabled]="checkoutForm.invalid">
+          Pay
+        </button>
+      </div>
+    </div>
+
   </div>
   
 </div>
