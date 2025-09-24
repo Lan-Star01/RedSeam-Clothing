@@ -1,1 +1,92 @@
-<p>checkout-page works!</p>
+<div class="container">
+  <h2 class="checkout-title mb-5 mt-5">Checkout</h2>
+
+  <div class="row">
+    <div class="col-7">
+      <form [formGroup]="checkoutForm" class="checkout-form">
+
+        <div class="form-section">
+          <h3 class="section-title">Order details</h3>
+
+          <div class="row">
+            <div class="col-md-4 mb-5">
+              <div class="form-group position-relative">
+                <input
+                  type="text"
+                  class="form-control sm-input"
+                  formControlName="firstName"
+                  placeholder="Name"
+                  [class.is-invalid]="isFieldInvalid('firstName')">
+                <div *ngIf="isFieldInvalid('firstName')" class="invalid-feedback">
+                  {{ getFieldError('firstName') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 mb-5">
+              <div class="form-group position-relative">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="lastName"
+                  placeholder="Surname"
+                  [class.is-invalid]="isFieldInvalid('lastName')">
+                <div *ngIf="isFieldInvalid('lastName')" class="invalid-feedback">
+                  {{ getFieldError('lastName') }}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-5">
+              <div class="form-group position-relative">
+                <div class="input-with-icon">
+                  <img src="assets/email.png" alt="Email Icon" class="email-icon">
+                  <input
+                    type="email"
+                    class="form-control lg-input email-input"
+                    formControlName="email"
+                    placeholder="Email"
+                    [class.is-invalid]="isFieldInvalid('email')">
+                </div>
+                <div *ngIf="isFieldInvalid('email')" class="invalid-feedback">
+                  {{ getFieldError('email') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 mb-5">
+              <div class="form-group position-relative">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="address"
+                  placeholder="Address"
+                  [class.is-invalid]="isFieldInvalid('address')">
+                <div *ngIf="isFieldInvalid('address')" class="invalid-feedback">
+                  {{ getFieldError('address') }}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-5">
+              <div class="form-group position-relative">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="zipCode"
+                  placeholder="Zip code"
+                  [class.is-invalid]="isFieldInvalid('zipCode')">
+                <div *ngIf="isFieldInvalid('zipCode')" class="invalid-feedback">
+                  {{ getFieldError('zipCode') }}
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+        </div>
+    
+      </form>
+    </div>
+    <div class="col-5"></div>
+  </div>
+  
+</div>
