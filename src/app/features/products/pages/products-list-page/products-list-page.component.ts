@@ -25,6 +25,7 @@ export class ProductsListPageComponent implements OnInit {
   sortBy = '';
   priceFrom: number | null = null;
   priceTo: number | null = null;
+  priceFilterApplied = false;
 
   constructor(
     private productService: ProductService,
@@ -131,7 +132,25 @@ export class ProductsListPageComponent implements OnInit {
     this.loadProducts();
   }
 
+  getSortDisplayText(): string {
+    switch(this.sortBy) {
+      case '-created_at': return 'New products first';
+      case 'price': return 'Price, low to high';
+      case '-price': return 'Price, high to low';
+      default: return 'Sort by';
+    }
+  }
+
   onPriceFilterChange(): void {
+    this.priceFilterApplied = true;
+    this.currentPage = 1;
+    this.loadProducts();
+  }
+
+  clearPriceFilter(): void {
+    this.priceFrom = null;
+    this.priceTo = null;
+    this.priceFilterApplied = false;
     this.currentPage = 1;
     this.loadProducts();
   }
@@ -139,4 +158,6 @@ export class ProductsListPageComponent implements OnInit {
   private scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
 }
+

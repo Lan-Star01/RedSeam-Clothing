@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 export class SidePanelComponent implements OnInit, OnDestroy {
   isOpen = false;
   cartItems: CartItem[] = [];
+  isLoading = false;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -26,12 +27,16 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.cartService.cartPanelOpen$.subscribe(isOpen => {
         this.isOpen = isOpen;
+        if (isOpen) {
+          this.isLoading = true;
+        }
       })
     );
 
     this.subscriptions.push(
       this.cartService.cartItems$.subscribe(items => {
         this.cartItems = items;
+        this.isLoading = false;
       })
     );
   }

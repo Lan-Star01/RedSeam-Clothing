@@ -39,14 +39,27 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
   }
 
   initializeForm(): void {
+    const userStr = localStorage.getItem('user');
+    let userEmail = '';
+
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        userEmail = user.email || '';
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+      }
+    }
+
     this.checkoutForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: [userEmail, [Validators.required, Validators.email]],
       address: ['', [Validators.required, Validators.minLength(5)]],
       zipCode: ['', [Validators.required, Validators.pattern(/^\d{4,6}$/)]]
     });
   }
+
 
   isFieldInvalid(fieldName: string): boolean {
     const field = this.checkoutForm.get(fieldName);
@@ -112,9 +125,8 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
 
       this.cartService.checkout(checkoutPayload).subscribe({
         next: (response) => {
-          console.log('Checkout successful:', response);
+          this.cartService.clearCart();
           this.showSuccessModal = true;
-          window.location.reload();
         },
         error: (error) => {
           console.error('Checkout failed:', error);

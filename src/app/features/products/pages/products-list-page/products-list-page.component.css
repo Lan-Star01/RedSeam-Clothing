@@ -79,7 +79,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
   border: 1px solid #F8F6F7;
   border-radius: 4px;
   font-size: 14px;
@@ -95,7 +94,6 @@
 }
 
 .page-btn.active {
-  background: #ffffff;
   border-color: #FF4000;
   color: #FF4000;
 }
@@ -104,7 +102,6 @@
   cursor: default;
   pointer-events: none;
 }
-
 
 .pagination-btn:disabled{
   color: #10151F;
@@ -159,8 +156,7 @@
 }
 
 .sortby-options div.active {
-  background-color: #FF4000;
-  color: white;
+  color: #FF4000;
 }
 
 .sortby-dropdown-menu p {
@@ -169,6 +165,17 @@
 
 .price-input::placeholder {
   color: #6C757D;
+}
+
+.price-input::-webkit-outer-spin-button,
+.price-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.price-input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .page-info {
@@ -184,4 +191,29 @@
 
 .filters-sortby-container {
   gap: 32px;
+}
+
+.price-filter-info {
+  border: 1px solid #E1DFE1;
+    border-radius: 50px;
+    padding: 8px 10px 8px 16px;
+    width: fit-content;
+    height: 37px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #3E424A;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+.close-btn {
+  margin-bottom: 0.65rem;
+}
+
+.close-btn i {
+  font-size: 8px;
+}
+
+.multicolor {
+ background: conic-gradient(red 0deg, orange 60deg, yellow 120deg, green 180deg, blue 240deg,  purple 300deg, red 360deg);
 }

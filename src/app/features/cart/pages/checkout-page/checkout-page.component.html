@@ -90,6 +90,15 @@
 
     <div class="col-4">
       <div class="cart-content">
+        <div *ngIf="cartItems.length === 0" class="empty-cart">
+          <img src="/assets/oops.png" alt="Empty Cart" class="empty-cart-icon">
+          <p class="oops">Ooops!</p>
+          <p>You've got nothing in your cart just yet...</p>
+          <a href="/" class="btn shop-btn red-btn mt-5">
+            Start Shopping
+          </a>
+        </div>
+
         <div *ngIf="cartItems.length > 0" class="cart-items">
           <div *ngFor="let item of cartItems" class="cart-item">
             <div class="item-image">

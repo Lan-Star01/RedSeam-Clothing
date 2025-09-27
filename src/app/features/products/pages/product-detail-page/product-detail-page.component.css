@@ -95,6 +95,20 @@
   flex-wrap: wrap;
 }
 
+.color-wrapper {
+  display: flex;
+  gap: 2px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.color-wrapper.selected {
+  border-color: #FF4000;
+}
+
 .color-circle {
   width: 38px;
   height: 38px;
@@ -214,4 +228,17 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.multicolor {
+  background: conic-gradient(red 0deg, orange 60deg, yellow 120deg, green 180deg, blue 240deg, purple 300deg, red 360deg) !important;
+}
+
+.navy-blue {
+  background-color: #000080;
+}
+
+.direction-text {
+  font-weight: 300;
+  font-size: 14px;
 }

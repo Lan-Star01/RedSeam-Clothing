@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../../core/services/product.service';
 import { CartService } from '../../../../core/services/cart.service';
+import { AuthService } from '../../../../core/services/auth.service';
 import { ProductDetail } from '../../../../core/models/product.model';
 
 @Component({
@@ -19,12 +20,14 @@ export class ProductDetailPageComponent implements OnInit {
   selectedColor = '';
   selectedSize = '';
   selectedQuantity = 1;
+  quantityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -74,21 +77,24 @@ export class ProductDetailPageComponent implements OnInit {
   }
 
   getQuantityOptions(): number[] {
-    if (!this.product || !this.product.quantity || this.product.quantity <= 0) return [1];
-    const maxQuantity = this.product.quantity;
-    const options: number[] = [];
-    for (let i = 1; i <= maxQuantity; i++) {
-      options.push(i);
-    }
-    return options;
+    return this.quantityOptions;
   }
 
   selectQuantity(quantity: number): void {
     this.selectedQuantity = quantity;
   }
 
+  get isAuthenticated(): boolean {
+    return this.authService.isAuthenticated;
+  }
+
   addToCart(): void {
     if (!this.product) return;
+
+    if (!this.isAuthenticated) {
+      alert('Please log in to add items to your cart');
+      return;
+    }
 
     if (!this.selectedColor || !this.selectedSize) {
       alert('Please select color and size');
@@ -102,8 +108,8 @@ export class ProductDetailPageComponent implements OnInit {
     };
 
     this.cartService.addProductToCart(this.product.id, payload).subscribe({
-      next: (response) => {
-        console.log('Product added to cart successfully:', response);
+      next: () => {
+        this.cartService.openCartPanel();
       },
       error: (error) => {
         console.error('Error adding product to cart:', error);

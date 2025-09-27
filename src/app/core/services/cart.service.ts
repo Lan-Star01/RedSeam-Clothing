@@ -64,6 +64,10 @@ export class CartService {
     });
   }
 
+  clearCart(): void {
+    this.cartItemsSubject.next([]);
+  }
+
   get isCartPanelOpen(): boolean {
     return this.cartPanelOpenSubject.value;
   }

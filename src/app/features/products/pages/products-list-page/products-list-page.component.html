@@ -50,7 +50,7 @@
             </div>
             <div class="dropdown">
                 <button class="btn dropdown-toggle sortby-dropdown d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Sort by <img src="/assets/arrow-down.png" />
+                    {{ getSortDisplayText() }} <img src="/assets/arrow-down.png" />
                 </button>
                 <div class="dropdown-menu sortby-dropdown-menu">
                     <p class="mb-1">Sort by</p>
@@ -63,6 +63,19 @@
                 </div>
             </div>  
         </div>
+    </div>
+
+    <div class="price-filter-info" *ngIf="priceFilterApplied">
+        <div class="d-flex align-items-center">
+            <span class="pe-1" >Price:</span>
+            <span>{{ priceFrom || 0 }}</span>
+            <span>-</span>
+            <span *ngIf="priceTo">{{ priceTo }}</span>
+            <span *ngIf="!priceTo"><i class="bi bi-infinity"></i></span>
+        </div>
+        <button class="close-btn" (click)="clearPriceFilter()">
+            <i class="bi bi-x-lg"></i>
+        </button>
     </div>
 
     <div *ngIf="!loading" class="products-grid">
