@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <div class="price-filter-info" *ngIf="priceFilterApplied">
+    <div class="price-filter-info mt-3" *ngIf="priceFilterApplied">
         <div class="d-flex align-items-center">
             <span class="pe-1" >Price:</span>
             <span>{{ priceFrom || 0 }}</span>
@@ -78,7 +78,7 @@
         </button>
     </div>
 
-    <div *ngIf="!loading" class="products-grid">
+    <div *ngIf="!loading" class="products-grid mt-4">
         <div class="product-card" *ngFor="let product of products" (click)="onProductClick(product.id)">
             <div class="product-image-container">
                 <img [src]="product.cover_image" [alt]="product.name" class="product-image">

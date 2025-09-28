@@ -85,6 +85,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  background: white;
 }
 
 .page-btn:hover {
@@ -216,4 +217,8 @@
 
 .multicolor {
  background: conic-gradient(red 0deg, orange 60deg, yellow 120deg, green 180deg, blue 240deg,  purple 300deg, red 360deg);
+}
+
+.red-btn:disabled {
+  background-color: #ff4000;
 }

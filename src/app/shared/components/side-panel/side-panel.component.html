@@ -44,14 +44,14 @@
             <div class="quantity-buttons">
               <button
                 class="btn"
-                (click)="updateQuantity(item.id, item.quantity - 1)"
+                (click)="updateQuantity(item, item.quantity - 1)"
                 [disabled]="item.quantity <= 1">
                 <i class="bi bi-dash-lg"></i>
               </button>
               <span class="quantity">{{ item.quantity }}</span>
               <button
                 class="btn"
-                (click)="updateQuantity(item.id, item.quantity + 1)">
+                (click)="updateQuantity(item, item.quantity + 1)">
                 <i class="bi bi-plus-lg"></i>
               </button>
             </div>

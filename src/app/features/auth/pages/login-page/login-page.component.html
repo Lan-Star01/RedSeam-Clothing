@@ -8,26 +8,31 @@
       <h3 class="mb-5 fw-semibold">Log in</h3>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form d-flex flex-column">
-        <div class="mb-3 position-relative">
-          <input
-            type="email"
-            class="form-control"
-            formControlName="email"
-            placeholder=" "
-            [class.is-invalid]="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
-            [class.is-valid]="loginForm.get('email')?.valid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
-          />
-          <label class="floating-label">Email <span class="text-danger">*</span></label>
+        <div class="mb-3 position-relative input-container">
+          <div class="position-relative">
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+              placeholder=" "
+              [class.is-invalid]="isFieldInvalid('email')"
+              [class.is-valid]="loginForm.get('email')?.valid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+            />
+            <label class="floating-label">Email <span class="text-danger">*</span></label>
+          </div>
+          <div *ngIf="isFieldInvalid('email')" class="invalid-feedback d-block">
+            {{ getFieldError('email') }}
+          </div>
         </div>
 
-        <div class="mb-4 position-relative">
+        <div class="mb-4 position-relative input-container">
           <div class="position-relative">
             <input
               [type]="showPassword ? 'text' : 'password'"
               class="form-control"
               formControlName="password"
               placeholder=" "
-              [class.is-invalid]="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+              [class.is-invalid]="isFieldInvalid('password')"
               [class.is-valid]="loginForm.get('password')?.valid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
             />
             <label class="floating-label">Password <span class="text-danger">*</span></label>
@@ -39,6 +44,9 @@
               <i [class]="showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
             </button>
           </div>
+          <div *ngIf="isFieldInvalid('password')" class="invalid-feedback d-block">
+            {{ getFieldError('password') }}
+          </div>
         </div>
 
         <button type="submit" class="btn red-btn w-100" [disabled]="loading">
@@ -46,7 +54,6 @@
         </button>
       </form>
 
-      <p class="text-danger mt-3" *ngIf="error">{{ error }}</p>
 
       <p class="text-center mt-3 register-text-prompt">
         Not a member?

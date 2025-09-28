@@ -60,8 +60,12 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateQuantity(productId: number, quantity: number): void {
-    this.cartService.updateProductInCart(productId, { quantity }).subscribe({
+  updateQuantity(item: CartItem, quantity: number): void {
+    this.cartService.updateProductInCart(item.id, {
+      quantity,
+      color: item.color,
+      size: item.size
+    }).subscribe({
       next: () => {
         this.cartService.refreshCart();
       },

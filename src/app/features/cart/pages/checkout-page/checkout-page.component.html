@@ -15,11 +15,11 @@
                 <input
                   type="text"
                   class="form-control sm-input"
-                  formControlName="firstName"
+                  formControlName="name"
                   placeholder="Name"
-                  [class.is-invalid]="isFieldInvalid('firstName')">
-                <div *ngIf="isFieldInvalid('firstName')" class="invalid-feedback">
-                  {{ getFieldError('firstName') }}
+                  [class.is-invalid]="isFieldInvalid('name')">
+                <div *ngIf="isFieldInvalid('name')" class="invalid-feedback">
+                  {{ getFieldError('name') }}
                 </div>
               </div>
             </div>
@@ -29,11 +29,11 @@
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="lastName"
+                  formControlName="surName"
                   placeholder="Surname"
-                  [class.is-invalid]="isFieldInvalid('lastName')">
-                <div *ngIf="isFieldInvalid('lastName')" class="invalid-feedback">
-                  {{ getFieldError('lastName') }}
+                  [class.is-invalid]="isFieldInvalid('surName')">
+                <div *ngIf="isFieldInvalid('surName')" class="invalid-feedback">
+                  {{ getFieldError('surName') }}
                 </div>
               </div>
             </div>
@@ -120,14 +120,14 @@
                 <div class="quantity-buttons">
                   <button
                     class="btn"
-                    (click)="updateQuantity(item.id, item.quantity - 1)"
+                    (click)="updateQuantity(item, item.quantity - 1)"
                     [disabled]="item.quantity <= 1">
                     <i class="bi bi-dash-lg"></i>
                   </button>
                   <span class="quantity">{{ item.quantity }}</span>
                   <button
                     class="btn"
-                    (click)="updateQuantity(item.id, item.quantity + 1)">
+                    (click)="updateQuantity(item, item.quantity + 1)">
                     <i class="bi bi-plus-lg"></i>
                   </button>
                 </div>

@@ -104,6 +104,37 @@ export class RegisterPageComponent {
     }
   }
 
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.registerForm.get(fieldName);
+    const hasFieldError = !!(field && field.invalid && (field.dirty || field.touched));
+
+    if (fieldName === 'confirmPassword' && this.error) {
+      return true;
+    }
+
+    return hasFieldError;
+  }
+
+  getFieldError(fieldName: string): string {
+    const field = this.registerForm.get(fieldName);
+    if (field?.errors) {
+      if (field.errors['required']) return `${fieldName} is required`;
+      if (field.errors['email']) return 'Please enter a valid email';
+      if (field.errors['pattern']) return 'Please enter a valid email';
+      if (field.errors['minlength']) {
+        if (fieldName === 'username') return 'Username must contain at least 3 characters';
+        if (fieldName === 'password') return 'Password must contain at least 3 characters';
+      }
+      if (field.errors['passwordMismatch']) return 'Passwords do not match';
+    }
+
+    if (fieldName === 'confirmPassword' && this.error) {
+      return this.error;
+    }
+
+    return '';
+  }
+
   onSubmit() {
     if (this.registerForm.invalid) return;
 

@@ -19,7 +19,7 @@ export class CartService {
     return this.api.post<CartItem>(`cart/products/${productId}`, payload);
   }
 
-  updateProductInCart(productId: number, payload: { quantity: number }): Observable<CartItem> {
+  updateProductInCart(productId: number, payload: { quantity: number; color: string; size: string }): Observable<CartItem> {
     return this.api.patch<CartItem>(`cart/products/${productId}`, payload);
   }
 

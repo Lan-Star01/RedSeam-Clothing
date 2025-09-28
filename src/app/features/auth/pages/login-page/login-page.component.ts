@@ -40,6 +40,36 @@ export class LoginPageComponent {
     this.showPassword = !this.showPassword;
   }
 
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.loginForm.get(fieldName);
+    const hasFieldError = !!(field && field.invalid && (field.dirty || field.touched));
+
+    if (fieldName === 'password' && this.error) {
+      return true;
+    }
+
+    return hasFieldError;
+  }
+
+  getFieldError(fieldName: string): string {
+    const field = this.loginForm.get(fieldName);
+    if (field?.errors) {
+      if (field.errors['required']) return `${fieldName} is required`;
+      if (field.errors['email']) return 'Please enter a valid email';
+      if (field.errors['pattern']) return 'Please enter a valid email';
+      if (field.errors['minlength']) {
+        if (fieldName === 'email') return 'Email must contain at least 3 characters';
+        if (fieldName === 'password') return 'Password must contain at least 3 characters';
+      }
+    }
+
+    if (fieldName === 'password' && this.error) {
+      return this.error;
+    }
+
+    return '';
+  }
+
   onSubmit() {
     if (this.loginForm.invalid) return;
 
@@ -55,7 +85,7 @@ export class LoginPageComponent {
           next: (user) => {
             localStorage.setItem('token', user.token);
             localStorage.setItem('user', JSON.stringify(user.user));
-            this.router.navigateByUrl('/products');
+            this.router.navigateByUrl('/');
           },
           error: () => {
             this.error = 'Invalid email or password';

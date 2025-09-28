@@ -52,8 +52,8 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
     }
 
     this.checkoutForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      surName: ['', [Validators.required, Validators.minLength(2)]],
       email: [userEmail, [Validators.required, Validators.email]],
       address: ['', [Validators.required, Validators.minLength(5)]],
       zipCode: ['', [Validators.required, Validators.pattern(/^\d{4,6}$/)]]
@@ -77,8 +77,12 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
     return '';
   }
 
-  updateQuantity(productId: number, quantity: number): void {
-    this.cartService.updateProductInCart(productId, { quantity }).subscribe({
+  updateQuantity(item: CartItem, quantity: number): void {
+    this.cartService.updateProductInCart(item.id, {
+      quantity,
+      color: item.color,
+      size: item.size
+    }).subscribe({
       next: () => {
         this.cartService.refreshCart();
       },
@@ -115,8 +119,8 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
   onPayment(): void {
     if (this.checkoutForm.valid && this.cartItems.length > 0) {
       const checkoutPayload = {
-        name: this.checkoutForm.value.firstName,
-        surname: this.checkoutForm.value.lastName,
+        name: this.checkoutForm.value.name,
+        surname: this.checkoutForm.value.surName,
         email: this.checkoutForm.value.email,
         address: this.checkoutForm.value.address,
         zip_code: this.checkoutForm.value.zipCode,
