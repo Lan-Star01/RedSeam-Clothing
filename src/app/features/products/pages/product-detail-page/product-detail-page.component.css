@@ -242,3 +242,7 @@
   font-weight: 300;
   font-size: 14px;
 }
+
+.red-btn:disabled {
+  background-color: #ff4000;
+}

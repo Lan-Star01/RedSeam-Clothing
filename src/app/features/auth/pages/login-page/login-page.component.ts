@@ -85,7 +85,9 @@ export class LoginPageComponent {
           next: (user) => {
             localStorage.setItem('token', user.token);
             localStorage.setItem('user', JSON.stringify(user.user));
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/').then(() => {
+              window.location.reload();
+            });
           },
           error: () => {
             this.error = 'Invalid email or password';
