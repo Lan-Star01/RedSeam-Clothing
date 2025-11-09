@@ -68,5 +68,11 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSubject.next(user);
   }
-  
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.currentUserSubject.next(null);
+  }
+
 }

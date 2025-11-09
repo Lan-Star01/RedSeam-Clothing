@@ -27,15 +27,17 @@
 }
 
 .checkout-form .sm-input{
-  width: 277px;
+  width: 100%;
+  max-width: 277px;
 }
 
 .checkout-form .lg-input{
-  width: 578px;
+  width: 100%;
 }
 
 .checkout-form .row {
-  width: 86%;
+  width: 100%;
+  max-width: 650px;
 }
 
 .input-with-icon {
@@ -58,15 +60,16 @@
 
 .cart-content {
   padding-top: 0;
-  height: 304px;
+  height: 327px;
 }
 
-.cart-items {
+/* .cart-items {
   height: 393px;
-}
+} */
 
-.col-4 {
-  width: 460px;
+.checkout-page .col-4 {
+  width: 100%;
+  max-width: 460px;
 }
 
 .cart-footer {
@@ -74,5 +77,5 @@
 }
 
 .cart-price-summary {
-  margin: 5.4rem 0;
+  margin: 4rem 0 5.2rem;
 }

@@ -1,16 +1,16 @@
 <div class="container">
   <h2 class="checkout-title mb-5 mt-5">Checkout</h2>
 
-  <div class="row justify-content-between">
+  <div class="row justify-content-between checkout-content">
 
-    <div class="col-8">
+    <div class="col-md-8 col-12">
       <form [formGroup]="checkoutForm" class="checkout-form">
 
         <div class="form-section">
           <h3 class="section-title">Order details</h3>
 
           <div class="row">
-            <div class="col-md-4 mb-5">
+            <div class="col-md-6 mb-5">
               <div class="form-group position-relative">
                 <input
                   type="text"
@@ -24,7 +24,7 @@
               </div>
             </div>
 
-            <div class="col-md-4 mb-5">
+            <div class="col-md-6 mb-5">
               <div class="form-group position-relative">
                 <input
                   type="text"
@@ -54,7 +54,7 @@
               </div>
             </div>
 
-            <div class="col-md-4 mb-5">
+            <div class="col-md-6 mb-5">
               <div class="form-group position-relative">
                 <input
                   type="text"
@@ -67,7 +67,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-4 mb-5">
+            <div class="col-md-6 mb-5">
               <div class="form-group position-relative">
                 <input
                   type="text"
@@ -88,7 +88,7 @@
       </form>
     </div>
 
-    <div class="col-4">
+    <div class="col-md-4 col-12">
       <div class="cart-content">
         <div *ngIf="cartItems.length === 0" class="empty-cart">
           <img src="/assets/oops.png" alt="Empty Cart" class="empty-cart-icon">

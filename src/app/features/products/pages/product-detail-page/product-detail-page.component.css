@@ -32,11 +32,11 @@
 }
 
 .main-image {
-  width: 703px;
+  width: 100%;
+  max-width: 703px;
   height: 937px;
   overflow: hidden;
   border-radius: 10px;
-  background-color: #f8f9fa;
 }
 
 .main-product-image {
